@@ -35,10 +35,10 @@ class Restaurant extends ChangeNotifier {
     ),
 
     Food(
-      name: "Tenderloin Steak",
+      name: "T-Bone Steak",
       description:
           "Combines two great cuts in one — tenderloin and strip steak — separated by a T-shaped bone. It’s perfect for those who want variety in every bite.",
-      imagePath: "lib/images/steaks/Tenderloin_Steak.jpg",
+      imagePath: "lib/images/steaks/T-Bone_Steak.jpg",
       price: 2050,
       category: foodCategory.Steaks,
       avaliableAddons: [
@@ -138,7 +138,7 @@ class Restaurant extends ChangeNotifier {
       name: "Tenderloin Platter",
       description:
           "Premium tenderloin served with creamy mashed potatoes, roasted vegetables, and a fresh salad. Extremely tender, mild, and luxurious.",
-      imagePath: "lib/images/platers/Platter_Combo.jpg",
+      imagePath: "lib/images/platers/Tenderloin_Combo.jpg",
       price: 2650,
       category: foodCategory.Platers,
       avaliableAddons: [
@@ -196,7 +196,7 @@ class Restaurant extends ChangeNotifier {
       name: "Mini Cake",
       description:
           "Small, bite-sized cakes with rich flavors and creamy frosting. Ideal for quick indulgence or gifts.",
-      imagePath: "lib/images/desserts/Jar_Cake.jpg",
+      imagePath: "lib/images/desserts/Mini_Cake.jpg",
       price: 180,
       category: foodCategory.Desserts,
       avaliableAddons: [
