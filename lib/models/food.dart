@@ -18,11 +18,10 @@ class Food {
 
 // food categories
 enum foodCategory {
-  steaks,
-  salads,
-  sides,
-  desserts,
-  drinks,
+  Steaks,
+  Platers,
+  Desserts,
+  Drinks,
 }
 
 // food addons
