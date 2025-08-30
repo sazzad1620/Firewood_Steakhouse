@@ -1,8 +1,10 @@
+import 'dart:ffi';
+
 class Food {
   final String name;
   final String description;
   final String imagePath;
-  final double price;
+  final int price;
   final foodCategory category;
   List<Addon> avaliableAddons;
 
@@ -27,7 +29,7 @@ enum foodCategory {
 // food addons
 class Addon {
   String name;
-  double price;
+  int price;
 
   Addon({
     required this.name,
