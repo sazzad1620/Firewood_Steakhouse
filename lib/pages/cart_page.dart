@@ -87,7 +87,7 @@ class CartPage extends StatelessWidget {
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const PaymentPage(),
+                    builder: (context) => const Checkout(),
                   ),
                 ),
               ),

@@ -37,6 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider: ^6.1.5+1
   collection: ^1.18.0
+  bkash: ^0.0.2
+  get: 
+  flutter_sslcommerz: ^2.5.1
 
 dev_dependencies:
   flutter_test:
