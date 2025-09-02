@@ -43,7 +43,7 @@ class _FoodPageState extends State<FoodPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "Sunset Dinner",
+          "Firewood Steakhouse",
           style: TextStyle(
             color: Theme.of(context).colorScheme.inversePrimary,
           ),
