@@ -90,6 +90,7 @@ class CartPage extends StatelessWidget {
                     builder: (context) => const Checkout(),
                   ),
                 ),
+                isDisabled: false,
               ),
 
               const SizedBox(height: 25),

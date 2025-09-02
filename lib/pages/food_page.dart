@@ -167,6 +167,7 @@ class _FoodPageState extends State<FoodPage> {
             MyButton(
               text: "Add to cart",
               onTap: () => addToCart(widget.food, widget.selectedAddons),
+              isDisabled: false,
             ),
 
             const SizedBox(height: 25),

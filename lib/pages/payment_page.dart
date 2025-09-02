@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/components/my_button.dart';
 import 'package:food_delivery_app/components/payment_helper.dart';
 
 class Checkout extends StatefulWidget {
@@ -18,7 +19,7 @@ class _CheckoutState extends State<Checkout> {
           'https://freelogopng.com/images/all_img/1656234841bkash-icon-png.png',
     },
     {
-      'name': 'SslCommerz',
+      'name': 'SSLCOMMERZ',
       'logo':
           'https://apps.odoo.com/web/image/loempia.module/193670/icon_image?unique=c301a64',
     },
@@ -26,82 +27,77 @@ class _CheckoutState extends State<Checkout> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    // Lighter/ash colors for boxes/buttons
+    final boxColor = colorScheme.brightness == Brightness.light
+        ? Colors.white // main background & boxes white for light mode
+        : colorScheme.secondary; // dark mode background for tiles
+
+    final selectedBorderColor = colorScheme.brightness == Brightness.light
+        ? Colors.grey.shade400
+        : const Color.fromARGB(255, 162, 162, 162); // ash border on selection
+
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
-        centerTitle: false,
-        title: const Text(
-          'Checkout',
-          style: TextStyle(
-            color: Colors.white,
-          ),
-        ),
+        title: const Text("Checkout"),
+        backgroundColor: colorScheme.background,
+        foregroundColor: colorScheme.inversePrimary,
+        elevation: 0,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView(
+      backgroundColor: colorScheme.brightness == Brightness.light
+          ? Colors.white
+          : colorScheme.background,
+      body: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Select a payment method',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                    ),
+                    "Select a payment method",
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                   ),
                   const SizedBox(height: 10),
-                  ListView.separated(
-                    shrinkWrap: true,
-                    primary: false,
-                    itemBuilder: (_, index) {
-                      return PaymentMethodTile(
-                        logo: gateways[index]['logo'],
-                        name: gateways[index]['name'],
-                        selected: selected ?? '',
-                        onTap: () {
-                          selected = gateways[index]['name']
-                              .toString()
-                              .replaceAll(' ', '_')
-                              .toLowerCase();
-                          setState(() {});
-                        },
-                      );
-                    },
-                    separatorBuilder: (_, index) => const SizedBox(height: 10),
-                    itemCount: gateways.length,
+                  Expanded(
+                    child: ListView.separated(
+                      itemCount: gateways.length,
+                      separatorBuilder: (_, __) => const SizedBox(height: 10),
+                      itemBuilder: (context, index) {
+                        final gateway = gateways[index];
+                        return PaymentMethodTile(
+                          logo: gateway['logo'],
+                          name: gateway['name'],
+                          selected: selected ?? '',
+                          boxColor: boxColor,
+                          selectedBorderColor: selectedBorderColor,
+                          onTap: () {
+                            selected = gateway['name']
+                                .toString()
+                                .replaceAll(' ', '_')
+                                .toLowerCase();
+                            setState(() {});
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),
             ),
-            InkWell(
-              // ✅ pass context as well
-              onTap: selected == null
-                  ? null
-                  : () => onButtonTap(context, selected ?? ''),
-              child: Container(
-                height: 50,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: selected == null
-                      ? Colors.blueAccent.withOpacity(.5)
-                      : Colors.blueAccent,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: const Center(
-                  child: Text(
-                    'Continue to payment',
-                    style: TextStyle(
-                      fontSize: 15,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+          // Button without extra padding
+          MyButton(
+            text: "Continue to payment",
+            onTap: selected == null
+                ? null
+                : () => onButtonTap(context, selected ?? ''),
+            isDisabled: selected == null,
+          ),
+          const SizedBox(height: 25),
+        ],
       ),
     );
   }
@@ -112,6 +108,8 @@ class PaymentMethodTile extends StatelessWidget {
   final String name;
   final Function()? onTap;
   final String selected;
+  final Color boxColor;
+  final Color selectedBorderColor;
 
   const PaymentMethodTile({
     super.key,
@@ -119,20 +117,24 @@ class PaymentMethodTile extends StatelessWidget {
     required this.name,
     this.onTap,
     required this.selected,
+    required this.boxColor,
+    required this.selectedBorderColor,
   });
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    final isSelected = selected == name.replaceAll(' ', '_').toLowerCase();
+
     return InkWell(
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: boxColor,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
-            color: selected == name.replaceAll(' ', '_').toLowerCase()
-                ? Colors.blueAccent
-                : Colors.black.withOpacity(.1),
+            color: isSelected ? selectedBorderColor : Colors.black12,
             width: 2,
           ),
         ),
@@ -142,7 +144,13 @@ class PaymentMethodTile extends StatelessWidget {
             height: 35,
             width: 35,
           ),
-          title: Text(name),
+          title: Text(
+            name,
+            style: TextStyle(
+              color: colorScheme.inversePrimary,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ),
       ),
     );

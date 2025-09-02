@@ -5,21 +5,22 @@ import 'package:flutter_sslcommerz/model/SSLCommerzInitialization.dart';
 import 'package:flutter_sslcommerz/model/SSLCurrencyType.dart';
 import 'package:flutter_sslcommerz/sslcommerz.dart';
 import 'dart:convert';
-
-double totalPrice = 10.00;
-
-// initialize bKash SDK
-final bkash = Bkash(logResponse: true);
+import 'package:provider/provider.dart';
+import 'package:food_delivery_app/models/restaurant.dart';
 
 /// Handles button tap and triggers payment based on selected gateway
 void onButtonTap(BuildContext context, String selected) async {
+  // Get total price from Restaurant provider and convert to double
+  final totalPriceInt = context.read<Restaurant>().getTotalPrice();
+  final totalPrice = totalPriceInt.toDouble();
+
   switch (selected) {
     case 'bkash':
-      await bkashPayment(context);
+      await bkashPayment(context, totalPrice);
       break;
 
     case 'sslcommerz':
-      sslcommerz();
+      sslcommerz(context, totalPrice);
       break;
 
     default:
@@ -27,11 +28,14 @@ void onButtonTap(BuildContext context, String selected) async {
   }
 }
 
+/// Initialize bKash SDK
+final bkash = Bkash(logResponse: true);
+
 /// Main bKash payment function
-Future<void> bkashPayment(BuildContext context) async {
+Future<void> bkashPayment(BuildContext context, double totalPrice) async {
   try {
     final response = await bkash.pay(
-      context: context, // ✅ using widget context instead of Get.context!
+      context: context,
       amount: totalPrice,
       merchantInvoiceNumber: 'Test012345',
     );
@@ -50,7 +54,7 @@ Future<void> bkashPayment(BuildContext context) async {
 }
 
 /// SslCommerz
-void sslcommerz() async {
+void sslcommerz(BuildContext context, double totalPrice) async {
   Sslcommerz sslcommerz = Sslcommerz(
     initializer: SSLCommerzInitialization(
       multi_card_name: "visa,master,bkash",
@@ -68,7 +72,6 @@ void sslcommerz() async {
 
   if (response.status == 'VALID') {
     print(jsonEncode(response));
-
     print('Payment completed, TRX ID: ${response.tranId}');
     print(response.tranDate);
   }

@@ -8,6 +8,7 @@ class MyButton extends StatelessWidget {
     super.key,
     required this.text,
     required this.onTap,
+    required bool isDisabled,
   });
 
   @override
