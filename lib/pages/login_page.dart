@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 // logo
                 Icon(
-                  Icons.lock_open_rounded,
+                  Icons.food_bank_rounded,
                   size: 100,
                   color: Theme.of(context).colorScheme.inversePrimary,
                 ),
@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(height: 25),
 
                 Text(
-                  "Food Delivery App",
+                  "Firewood Steakhouse",
                   style: TextStyle(
                     fontSize: 16,
                     color: Theme.of(context).colorScheme.inversePrimary,
