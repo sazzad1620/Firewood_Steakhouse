@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/components/my_button.dart';
 import 'package:food_delivery_app/components/my_cart_tile.dart';
-import 'package:food_delivery_app/models/cart_item.dart';
 import 'package:food_delivery_app/models/restaurant.dart';
 import 'package:food_delivery_app/pages/payment_page.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +18,7 @@ class CartPage extends StatelessWidget {
         // scaffold UI
         return Scaffold(
           appBar: AppBar(
-            title: const Text("Cart"),
+            title: const Text("Car"),
             backgroundColor: Colors.transparent,
             foregroundColor: Theme.of(context).colorScheme.inversePrimary,
             actions: [
