@@ -28,7 +28,7 @@ class _RegisterPageState extends State<RegisterPage> {
           children: [
             // logo
             Icon(
-              Icons.lock_open_rounded,
+              Icons.food_bank_rounded,
               size: 100,
               color: Theme.of(context).colorScheme.inversePrimary,
             ),

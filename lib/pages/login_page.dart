@@ -44,7 +44,6 @@ class _LoginPageState extends State<LoginPage> {
         backgroundColor: Theme.of(context).colorScheme.background,
         body: Center(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
