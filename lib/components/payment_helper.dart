@@ -4,9 +4,11 @@ import 'package:flutter_sslcommerz/model/SSLCSdkType.dart';
 import 'package:flutter_sslcommerz/model/SSLCommerzInitialization.dart';
 import 'package:flutter_sslcommerz/model/SSLCurrencyType.dart';
 import 'package:flutter_sslcommerz/sslcommerz.dart';
+import 'package:food_delivery_app/pages/delivery_process_lage.dart';
 import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:food_delivery_app/models/restaurant.dart';
+import 'package:food_delivery_app/pages/delivery_process_page.dart';
 
 /// Handles button tap and triggers payment based on selected gateway
 void onButtonTap(BuildContext context, String selected) async {
@@ -43,6 +45,18 @@ Future<void> bkashPayment(BuildContext context, double totalPrice) async {
     if (response != null) {
       print("Transaction ID: ${response.trxId}");
       print("Payment ID: ${response.paymentId}");
+      // Navigate to DeliveryProcessPage with receipt info
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) => DeliveryProcessPage(
+            trxId: response.trxId,
+            paymentId: response.paymentId,
+            amount: totalPrice,
+            method: "bKash",
+          ),
+        ),
+      );
     } else {
       print("Payment failed or was cancelled.");
     }
@@ -74,6 +88,18 @@ void sslcommerz(BuildContext context, double totalPrice) async {
     print(jsonEncode(response));
     print('Payment completed, TRX ID: ${response.tranId}');
     print(response.tranDate);
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (_) => DeliveryProcessPage(
+          trxId: response.tranId ?? '',
+          paymentId: response.bankTranId ?? '',
+          amount: totalPrice,
+          method: "SSLCommerz",
+        ),
+      ),
+    );
   }
 
   if (response.status == 'Closed') {
