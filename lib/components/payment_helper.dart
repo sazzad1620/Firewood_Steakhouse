@@ -4,11 +4,10 @@ import 'package:flutter_sslcommerz/model/SSLCSdkType.dart';
 import 'package:flutter_sslcommerz/model/SSLCommerzInitialization.dart';
 import 'package:flutter_sslcommerz/model/SSLCurrencyType.dart';
 import 'package:flutter_sslcommerz/sslcommerz.dart';
-import 'package:food_delivery_app/pages/delivery_process_lage.dart';
+import 'package:food_delivery_app/pages/delivery_process_page.dart';
 import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:food_delivery_app/models/restaurant.dart';
-import 'package:food_delivery_app/pages/delivery_process_page.dart';
 
 /// Handles button tap and triggers payment based on selected gateway
 void onButtonTap(BuildContext context, String selected) async {
@@ -49,7 +48,7 @@ Future<void> bkashPayment(BuildContext context, double totalPrice) async {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (_) => DeliveryProcessPage(
+          builder: (_) => DeliveryProgressPage(
             trxId: response.trxId,
             paymentId: response.paymentId,
             amount: totalPrice,
@@ -92,7 +91,7 @@ void sslcommerz(BuildContext context, double totalPrice) async {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (_) => DeliveryProcessPage(
+        builder: (_) => DeliveryProgressPage(
           trxId: response.tranId ?? '',
           paymentId: response.bankTranId ?? '',
           amount: totalPrice,
